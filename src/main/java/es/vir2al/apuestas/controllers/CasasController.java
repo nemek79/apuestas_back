@@ -27,7 +27,7 @@ import es.vir2al.apuestas.services.CasasService;
 /**
  * CasasController
  */
-@CrossOrigin(origins = { "http://localhost:4200", "*" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/casas")
 public class CasasController {

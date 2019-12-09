@@ -28,7 +28,7 @@ import es.vir2al.apuestas.services.MovimientosService;
 /**
  * MovimientosController
  */
-@CrossOrigin(origins = { "http://localhost:4200", "*" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/movimientos")
 public class MovimientosController {

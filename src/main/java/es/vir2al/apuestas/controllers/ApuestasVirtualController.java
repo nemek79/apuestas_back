@@ -30,7 +30,7 @@ import es.vir2al.apuestas.services.ApuestasVirtualesService;
 /**
  * ApuestasVirtualController
  */
-@CrossOrigin(origins = { "http://localhost:4200", "*" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/virtuales")
 public class ApuestasVirtualController {

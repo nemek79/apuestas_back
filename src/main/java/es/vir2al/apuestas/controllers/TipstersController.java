@@ -25,7 +25,7 @@ import es.vir2al.apuestas.services.TipstersService;
 /**
  * TipstersController
  */
-@CrossOrigin(origins = { "http://localhost:4200", "*" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/tipsters")
 public class TipstersController {

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>es.vir2al</groupId>
 	<artifactId>apuestas</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>apuestas</name>
 	<description>Backend para soporte de mis apuestas</description>
 

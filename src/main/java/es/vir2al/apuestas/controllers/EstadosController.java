@@ -25,7 +25,7 @@ import es.vir2al.apuestas.services.EstadosService;
 /**
  * EstadosController
  */
-@CrossOrigin(origins = { "http://localhost:4200", "*" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/estados")
 public class EstadosController {

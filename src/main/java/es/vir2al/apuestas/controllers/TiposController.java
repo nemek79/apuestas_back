@@ -28,7 +28,7 @@ import es.vir2al.apuestas.services.TiposService;
 /**
  * TiposController
  */
-@CrossOrigin(origins = { "http://localhost:4200", "*" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/tipos")
 public class TiposController {
