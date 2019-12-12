@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,8 @@ import javassist.NotFoundException;
 @Service
 public class ApuestasServiceImpl implements ApuestasService {
 
+  private static final Logger logger = LoggerFactory.getLogger(ApuestasServiceImpl.class);
+
   @Autowired
   private ApuestasDAO apuestasDAO;
 
@@ -39,6 +43,8 @@ public class ApuestasServiceImpl implements ApuestasService {
 
     Apuesta apuestaBD = this.apuestasDAO.findById(id)
         .orElseThrow(() -> new NotFoundException("No se ha encontrado la apuesta con Id: " + id));
+
+    logger.warn(apuestaBD.toString());
 
     return new ApuestaDTO(apuestaBD);
   }

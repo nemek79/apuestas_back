@@ -1,12 +1,16 @@
 package es.vir2al.apuestas.dtos;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import es.vir2al.apuestas.constantes.ConstApp;
 import es.vir2al.apuestas.models.ApuestaVirtual;
 
 /**
@@ -15,6 +19,8 @@ import es.vir2al.apuestas.models.ApuestaVirtual;
 public class ApuestaVirtualDTO implements Serializable {
 
   private static final long serialVersionUID = -6099767994661234605L;
+
+  SimpleDateFormat sdf = new SimpleDateFormat(ConstApp.INPUT_DATE_FORMAT,Locale.getDefault());
 
   private Long id;
 
@@ -70,7 +76,7 @@ public class ApuestaVirtualDTO implements Serializable {
     this.ganancia = apuesta.getGanancia();
     this.importe = apuesta.getImporte();
     this.stake = apuesta.getStake();
-    
+
     this.estado = new EstadoDTO(apuesta.getEstado()); // El estado no puede ser nulo en el modelo
     this.tipo = new TipoDTO(apuesta.getTipo()); // El tipo no puede ser nulo
     this.tipster = new TipsterDTO(apuesta.getTipster()); // El tipster no puede ser nulo
@@ -97,7 +103,7 @@ public class ApuestaVirtualDTO implements Serializable {
     this.ganancia = apuesta.getGanancia();
     this.importe = apuesta.getImporte();
     this.stake = apuesta.getStake();
-    
+
     this.estado = apuesta.getEstado(); // El estado no puede ser nulo en el modelo
     this.tipo = apuesta.getTipo(); // El tipo no puede ser nulo
     this.tipster = apuesta.getTipster(); // El tipster no puede ser nulo
@@ -109,6 +115,7 @@ public class ApuestaVirtualDTO implements Serializable {
 
   /**
    * Mapeo del dto al modelo de la base de datos
+   * 
    * @return
    * @throws Exception
    */
@@ -126,10 +133,14 @@ public class ApuestaVirtualDTO implements Serializable {
     apuesta.setImporte(this.importe);
     apuesta.setStake(this.stake);
 
-    apuesta.setEstado(this.estado.asEstado().orElseThrow(() -> new Exception("Error al obtener estado de la apuesta: "+this.id)));
-    apuesta.setTipo(this.tipo.asTipo().orElseThrow(() -> new Exception("Error al obtener el tipo de la apuesta: "+this.id)));
-    apuesta.setTipster(this.tipster.asTipster().orElseThrow(() -> new Exception("Error al obtener el tipster de la apuesta: "+this.id)));
-    apuesta.setTorneo(this.torneo.asTorneo().orElseThrow(() -> new Exception("Error al obtener el torneo de la apuesta: "+this.id)));
+    apuesta.setEstado(
+        this.estado.asEstado().orElseThrow(() -> new Exception("Error al obtener estado de la apuesta: " + this.id)));
+    apuesta.setTipo(
+        this.tipo.asTipo().orElseThrow(() -> new Exception("Error al obtener el tipo de la apuesta: " + this.id)));
+    apuesta.setTipster(this.tipster.asTipster()
+        .orElseThrow(() -> new Exception("Error al obtener el tipster de la apuesta: " + this.id)));
+    apuesta.setTorneo(this.torneo.asTorneo()
+        .orElseThrow(() -> new Exception("Error al obtener el torneo de la apuesta: " + this.id)));
 
     apuesta.setApuestaId(this.apuestaId);
 
@@ -147,7 +158,7 @@ public class ApuestaVirtualDTO implements Serializable {
     this.ganancia = apuesta.getGanancia();
     this.importe = apuesta.getImporte();
     this.stake = apuesta.getStake();
-    
+
     this.estado = apuesta.getEstado(); // El estado no puede ser nulo en el modelo
     this.tipo = apuesta.getTipo(); // El tipo no puede ser nulo
     this.tipster = apuesta.getTipster(); // El tipster no puede ser nulo

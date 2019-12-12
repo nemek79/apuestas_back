@@ -37,7 +37,6 @@ public class ApuestaVirtual implements Serializable{
 	@Temporal(TemporalType.DATE)
   private Date fechaAlta;
 
-  @NotNull(message="La fecha de evento no puede estar vacía")
 	@Column(name="fecha_evento")
 	@Temporal(TemporalType.DATE)
   private Date fechaEvento;

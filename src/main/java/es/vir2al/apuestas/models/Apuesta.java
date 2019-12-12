@@ -35,9 +35,9 @@ public class Apuesta implements Serializable{
 	@Temporal(TemporalType.DATE)
   private Date fechaAlta;
 
-  @NotNull(message="La fecha de evento no puede estar vacía")
-	@Column(name="fecha_evento")
-	@Temporal(TemporalType.DATE)
+
+  @Column(name="fecha_evento")
+  @Temporal(TemporalType.DATE)
   private Date fechaEvento;
 
   @NotNull(message="La apuesta debe estar asociada a una casa de apuestas")
@@ -205,6 +205,14 @@ public class Apuesta implements Serializable{
 
   public void setStake(Float stake) {
     this.stake = stake;
+  }
+
+  @Override
+  public String toString() {
+    return "Apuesta [apuesta=" + apuesta + ", casa=" + casa + ", cuota=" + cuota + ", descripcion=" + descripcion
+        + ", estado=" + estado + ", fechaAlta=" + fechaAlta + ", fechaEvento=" + fechaEvento + ", ganancia=" + ganancia
+        + ", id=" + id + ", importe=" + importe + ", stake=" + stake + ", tipo=" + tipo + ", tipster=" + tipster
+        + ", torneo=" + torneo + "]";
   }
 
   

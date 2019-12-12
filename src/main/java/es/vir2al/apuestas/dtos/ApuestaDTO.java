@@ -7,6 +7,8 @@ import java.util.Optional;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import es.vir2al.apuestas.models.Apuesta;
 
 /**
@@ -18,32 +20,34 @@ public class ApuestaDTO implements Serializable {
 
   private Long id;
 
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Europe/Madrid")
   private Date fechaAlta;
 
-  @NotNull(message="La fecha de evento no puede estar vacía")
+  @NotNull(message = "La fecha de evento no puede estar vacía")
+  @JsonFormat(pattern="yyyy-MM-dd", timezone="Europe/Madrid")
   private Date fechaEvento;
 
-  @NotNull(message="La apuesta debe estar asociada a una casa de apuestas")
+  @NotNull(message = "La apuesta debe estar asociada a una casa de apuestas")
   private CasaDTO casa;
-  
-  @NotNull(message="La apuesta debe estar asociada a un torneo")
+
+  @NotNull(message = "La apuesta debe estar asociada a un torneo")
   private TorneoDTO torneo;
-  
-  @NotNull(message="La apuesta debe estar asociada a un tipo de apuestas")
+
+  @NotNull(message = "La apuesta debe estar asociada a un tipo de apuestas")
   private TipoDTO tipo;
-  
-  @NotNull(message="La apuesta debe estar asociada a un tipster")
+
+  @NotNull(message = "La apuesta debe estar asociada a un tipster")
   private TipsterDTO tipster;
-  
-  @NotNull(message="La apuesta debe estar asociada a un estado")
+
+  @NotNull(message = "La apuesta debe estar asociada a un estado")
   private EstadoDTO estado;
-  
+
   @NotNull
-  @Size(min=4, max=128)
+  @Size(min = 4, max = 128)
   private String descripcion;
 
   @NotNull
-  @Size(min=2, max=64)
+  @Size(min = 2, max = 64)
   private String apuesta;
 
   private Float cuota;
@@ -56,6 +60,7 @@ public class ApuestaDTO implements Serializable {
 
   /**
    * Constructor que mapea desde el modelo
+   * 
    * @param apuesta
    * @throws Exception
    */
@@ -70,7 +75,7 @@ public class ApuestaDTO implements Serializable {
     this.ganancia = apuesta.getGanancia();
     this.importe = apuesta.getImporte();
     this.stake = apuesta.getStake();
-    
+
     this.casa = new CasaDTO(apuesta.getCasa()); // La casa de apuestas no puede ser nula en el modelo
     this.estado = new EstadoDTO(apuesta.getEstado()); // El estado no puede ser nulo en el modelo
     this.tipo = new TipoDTO(apuesta.getTipo()); // El tipo no puede ser nulo
@@ -81,6 +86,7 @@ public class ApuestaDTO implements Serializable {
 
   /**
    * Mapeo del dto al modelo de la base de datos
+   * 
    * @return
    * @throws Exception
    */
@@ -98,11 +104,16 @@ public class ApuestaDTO implements Serializable {
     apuesta.setImporte(this.importe);
     apuesta.setStake(this.stake);
 
-    apuesta.setCasa(this.casa.asCasa().orElseThrow(() -> new Exception("Error al obtener la casa de apuestas: "+this.id)));
-    apuesta.setEstado(this.estado.asEstado().orElseThrow(() -> new Exception("Error al obtener estado de la apuesta: "+this.id)));
-    apuesta.setTipo(this.tipo.asTipo().orElseThrow(() -> new Exception("Error al obtener el tipo de la apuesta: "+this.id)));
-    apuesta.setTipster(this.tipster.asTipster().orElseThrow(() -> new Exception("Error al obtener el tipster de la apuesta: "+this.id)));
-    apuesta.setTorneo(this.torneo.asTorneo().orElseThrow(() -> new Exception("Error al obtener el torneo de la apuesta: "+this.id)));
+    apuesta.setCasa(
+        this.casa.asCasa().orElseThrow(() -> new Exception("Error al obtener la casa de apuestas: " + this.id)));
+    apuesta.setEstado(
+        this.estado.asEstado().orElseThrow(() -> new Exception("Error al obtener estado de la apuesta: " + this.id)));
+    apuesta.setTipo(
+        this.tipo.asTipo().orElseThrow(() -> new Exception("Error al obtener el tipo de la apuesta: " + this.id)));
+    apuesta.setTipster(this.tipster.asTipster()
+        .orElseThrow(() -> new Exception("Error al obtener el tipster de la apuesta: " + this.id)));
+    apuesta.setTorneo(this.torneo.asTorneo()
+        .orElseThrow(() -> new Exception("Error al obtener el torneo de la apuesta: " + this.id)));
 
     return Optional.of(apuesta);
 
@@ -127,6 +138,8 @@ public class ApuestaDTO implements Serializable {
   public Date getFechaEvento() {
     return fechaEvento;
   }
+
+
 
   public void setFechaEvento(Date fechaEvento) {
     this.fechaEvento = fechaEvento;
@@ -221,6 +234,14 @@ public class ApuestaDTO implements Serializable {
   }
 
   public ApuestaDTO() {
+  }
+
+  @Override
+  public String toString() {
+    return "ApuestaDTO [apuesta=" + apuesta + ", casa=" + casa + ", cuota=" + cuota + ", descripcion=" + descripcion
+        + ", estado=" + estado + ", fechaAlta=" + fechaAlta + ", fechaEvento=" + fechaEvento + ", ganancia=" + ganancia
+        + ", id=" + id + ", importe=" + importe + ", stake=" + stake + ", tipo=" + tipo + ", tipster=" + tipster
+        + ", torneo=" + torneo + "]";
   }
 
 
