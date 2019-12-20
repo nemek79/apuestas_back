@@ -188,7 +188,7 @@ public class ApuestasServiceImpl implements ApuestasService {
 
   @Override
   @Transactional
-  public void updateEstado(Long id, Long estadoId) throws Exception {
+  public void updateEstado(Long id, Long estadoId, Float gananciaParcial) throws Exception {
     
     // Obtener la apuesta de la base de datos que se va a actualizar
 
@@ -218,6 +218,18 @@ public class ApuestasServiceImpl implements ApuestasService {
 
       // Cuando se pierde se genera una perdida igual al importe de la apuesta
       apuesta.setGanancia(apuesta.getImporte()*-1);
+    
+    } else if ( newEstadoId == ConstApp.ESTADO_PARCIAL) {
+
+      apuesta.setGanancia(gananciaParcial);
+
+      // hay que actualizar el importe de la casa de apuestas
+      float importeActualizar = gananciaParcial;
+
+      if (gananciaParcial < 0f) {
+        importeActualizar = apuesta.getImporte() + gananciaParcial;
+      }
+      this.casasSRV.actualizarImporte(apuesta.getCasa().getId(), importeActualizar);
 
     } else if ( newEstadoId == ConstApp.ESTADO_CANCELADA || 
                 newEstadoId == ConstApp.ESTADO_SUSPENDIDA ||

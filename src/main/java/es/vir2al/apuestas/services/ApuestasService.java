@@ -76,6 +76,7 @@ public interface ApuestasService {
    * @param estadoId
    * @throws Exception
    */
-  public void updateEstado(Long id, Long estadoId) throws Exception;
+  public void updateEstado(Long id, Long estadoId, Float gananciaParcial) throws Exception;
+
 
 }

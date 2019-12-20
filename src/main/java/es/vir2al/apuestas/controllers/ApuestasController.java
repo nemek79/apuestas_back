@@ -241,7 +241,10 @@ public class ApuestasController {
   }
 
   @PutMapping("/{id}/estado")
-  public ResponseEntity<?> updateEstadoApuesta(@PathVariable Long id, @RequestParam(required = true) Long estadoId) {
+  public ResponseEntity<?> updateEstadoApuesta(@PathVariable Long id, 
+                                                @RequestParam(required = true) Long estadoId,
+                                                @RequestParam(required = false) Float ganancia
+                                                ) {
 
     DataResponse dataResponse = new DataResponse();
     ErrorResponse errorResponse = new ErrorResponse();
@@ -253,9 +256,16 @@ public class ApuestasController {
       return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    if ( estadoId == (float)ConstApp.ESTADO_PARCIAL && ganancia == null) {
+      errorResponse.setMensaje("Error. No se puede actualizar la apuesta");
+      errorResponse.setDescripcion("El estado al que se intenta actualizar necesita un importe");
+
+      return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+    } 
+
     try {
 
-      this.apuestasSRV.updateEstado(id, estadoId);
+      this.apuestasSRV.updateEstado(id, estadoId, ganancia);
       dataResponse.setMensaje("Estado actualizado");
       dataResponse.setData(null);
 
