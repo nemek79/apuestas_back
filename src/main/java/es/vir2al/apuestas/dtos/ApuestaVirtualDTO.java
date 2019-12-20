@@ -1,7 +1,6 @@
 package es.vir2al.apuestas.dtos;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

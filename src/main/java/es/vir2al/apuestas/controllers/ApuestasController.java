@@ -246,7 +246,7 @@ public class ApuestasController {
     DataResponse dataResponse = new DataResponse();
     ErrorResponse errorResponse = new ErrorResponse();
 
-    if (estadoId < 2 || estadoId > 7) {
+    if (estadoId < 2 || estadoId > 8) {
       errorResponse.setMensaje("Error. No se puede actualizar la apuesta");
       errorResponse.setDescripcion("El estado al que se intenta actualizar no es correcto");
 

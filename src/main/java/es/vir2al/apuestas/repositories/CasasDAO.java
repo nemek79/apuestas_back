@@ -10,7 +10,7 @@ import es.vir2al.apuestas.models.Casa;
  */
 public interface CasasDAO extends JpaRepository<Casa,Long> {
 
-  @Query("select max(t.id) from Tipo t")
+  @Query("select max(c.id) from Casa c")
   public Long getMaxId();
   
 }
