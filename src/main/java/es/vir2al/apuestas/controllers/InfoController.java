@@ -1,7 +1,7 @@
 package es.vir2al.apuestas.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ import es.vir2al.apuestas.services.InfoService;
 @RequestMapping("/api/info")
 public class InfoController {
 
-  private static final Logger logger = LoggerFactory.getLogger(ApuestasController.class);
+  //private static final Logger logger = LoggerFactory.getLogger(ApuestasController.class);
 
   @Autowired
   private InfoService infoSRV;

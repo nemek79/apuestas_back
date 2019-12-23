@@ -126,11 +126,12 @@ public class InfoDiaResponse implements Serializable {
     this.importeGanancia = importeGanancia;
   }
 
+  // ganancia / total * 100
   public Float getYield() {
 
     if (importeTotal == 0) return 0f;
 
-    return (this.importeGanado / this.importeTotal) * 100;
+    return (this.importeGanancia / this.importeTotal) * 100;
 
   }
 
