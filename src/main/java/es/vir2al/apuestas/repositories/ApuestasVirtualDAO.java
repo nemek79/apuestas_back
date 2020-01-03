@@ -24,5 +24,8 @@ public interface ApuestasVirtualDAO extends JpaRepository<ApuestaVirtual,Long> {
   public List<ApuestaVirtual> findByEstadoBetweenFechasEvento(Estado estado, Date fechaIni, Date fechaFin);
 
   public ApuestaVirtual findByApuestaId(Long apuestaId);
+
+  @Query("select a from ApuestaVirtual a where a.estado < 3  and a.fechaEvento < curdate()")
+  public List<ApuestaVirtual> findPendientes();
   
 }

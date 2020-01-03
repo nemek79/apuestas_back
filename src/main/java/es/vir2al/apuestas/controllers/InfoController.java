@@ -1,5 +1,7 @@
 package es.vir2al.apuestas.controllers;
 
+import java.util.List;
+
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.vir2al.apuestas.dtos.DataResponse;
 import es.vir2al.apuestas.dtos.ErrorResponse;
+import es.vir2al.apuestas.dtos.Responses.AvisoResponse;
 import es.vir2al.apuestas.dtos.Responses.InfoDiaResponse;
 import es.vir2al.apuestas.services.InfoService;
 
@@ -23,7 +26,8 @@ import es.vir2al.apuestas.services.InfoService;
 @RequestMapping("/api/info")
 public class InfoController {
 
-  //private static final Logger logger = LoggerFactory.getLogger(ApuestasController.class);
+  // private static final Logger logger =
+  // LoggerFactory.getLogger(ApuestasController.class);
 
   @Autowired
   private InfoService infoSRV;
@@ -41,19 +45,46 @@ public class InfoController {
       infoResponse = this.infoSRV.getInfoDia();
       dataResponse.setData(infoResponse);
       dataResponse.setMensaje("Información diaria");
-    
+
     } catch (Exception e) {
 
       e.printStackTrace();
 
       errorResponse.setMensaje("Error. No se puede obtener la información");
-      errorResponse.setDescripcion("Se ha producido un error internto al intentar obtenre la información diaria.");
+      errorResponse.setDescripcion("Se ha producido un error internto al intentar obtener la información diaria.");
 
       return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     return new ResponseEntity<DataResponse>(dataResponse, HttpStatus.OK);
 
+  }
+
+  @GetMapping("/avisos")
+  public ResponseEntity<?> getAvisos() {
+
+    DataResponse dataResponse = new DataResponse();
+    ErrorResponse errorResponse = new ErrorResponse();
+    List<AvisoResponse> lstAvisos = null;
+
+    try {
+
+      lstAvisos = infoSRV.getAvisos();
+      dataResponse.setData(lstAvisos);
+      dataResponse.setMensaje("Avisos");
+    
+    } catch (Exception e) {
+
+      e.printStackTrace();
+
+      errorResponse.setMensaje("Error. No se puede obtener la información");
+      errorResponse.setDescripcion("Se ha producido un error internto al intentar obtener lo avisos.");
+
+      return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+    return new ResponseEntity<DataResponse>(dataResponse, HttpStatus.OK);
   }
   
 }

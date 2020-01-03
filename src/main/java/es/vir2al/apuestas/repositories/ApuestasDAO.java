@@ -23,4 +23,7 @@ public interface ApuestasDAO extends JpaRepository<Apuesta,Long> {
   @Query("select a from Apuesta a where a.estado = ?1 and a.fechaEvento >= ?2 and a.fechaEvento <= ?3")
   public List<Apuesta> findByEstadoBetweenFechasEvento(Estado estado, Date fechaIni, Date fechaFin);
 
+  @Query("select a from Apuesta a where a.estado < 3 and a.fechaEvento < curdate()")
+  public List<Apuesta> findPendientes();
+  
 }
